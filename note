@@ -1,0 +1,28 @@
+with non human supervision or with minimum supervision in the case when the user wants to specify keywords to describe aspects that should be used to summarize the comments and decompose the rating.
+we propose to solve the rated aspect summarization problem in the three steps:
+(1) extract major aspects
+    we propose a topic modeling method, called Structured PLSA, modeling the dependency structure of phrases in short comments. It is shown to improve the quality of the extracted aspects when compared with two strong baselines.
+(2) predict rating for each aspect from the overall ratings
+    we propose to predict the aspect ratings using two different approaches, both un-supervised: Local Prediction uses the local information of the overall rating of a comment to rate the phrases in that comment; Global Prediction uses phrases based on aspect level rating classifiers which are learned from overall ratings of all comments.
+(3) extract representative phrases
+    after the first two steps, we have the comments segmented into defferent aspects and different rating values. Then we could select phrases that represent what have been mostly said in the aspect.
+
+we design measures to evaluate each of the three components in a rated aspect summary. The extracted aspects are evaluated by comparing aspect coverage and clustering accuracy against human generated aspect clusters; we use the detail seller ratings in ebay as the gold standard to evaluate th aspect rating prediction, and evaluation metrics include both aspect rating correlation and ranking loss; we calculate precision and recall of the representative phrases against human labeled phrases.
+
+define the problem
+method
+experiments and results
+connections with existing work
+
+intuitively, the structure of phrases could help with the clustering of the head terms, because if two head terms tend to use the same set of modifiers, they should share similar meanning.
+
+In eBay, the feedback mechanism works as follows: after each transaction, the buyer is supposed to leave some feedback for the seller, including:
+(1) an overall rating as positive, neutral or negative
+(2) detailed seller ratings on four given aspects:item as described, communication, shipping time and shipping and handing charges
+(3) some short comments in free text
+
+experiments
+POS tagging and chunking function --- using OpenNLP toolkit
+sample Result of Rated Aspect Summarization
+
+in order to quantitatively evaluate the effectiveness of aspect discovery and clustering, we ask users to manually generate some aspect clusters as out gold standard.

@@ -1,0 +1,13 @@
+获取评论 get_comment.py
+去空格  raw_to_format.py
+分词  comment_process.py
+词性标记
+复合名词合并 noun_merge.py
+提取语义片段 comment_chunk.py
+除去干扰评论 remove_disturb.py
+词频统计 word_statistics.py
+去停用词 pre_process_high_frequency_word.py
+建立倒派索引 get_inverted_list.py
+获取用户体验词 find_word_about_ue.py
+获取色彩词 find_word_about_sentiment.py
+评论总结 sentiment_about_ue_evaluation.py
