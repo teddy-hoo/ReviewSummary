@@ -1,5 +1,5 @@
 #!/bin/python
-#coding=utf8
+# -*- coding: utf-8 -*-
 
 import httplib
 import string
