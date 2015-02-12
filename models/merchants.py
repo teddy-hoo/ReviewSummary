@@ -6,4 +6,5 @@ from peewee import *
 
 class Merchants(BaseModel):
 	id = PrimaryKeyField()
+	mid = TextField(unique = True)
 	name = TextField()

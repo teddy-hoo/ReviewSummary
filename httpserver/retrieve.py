@@ -11,6 +11,8 @@ import base
 from htmlParserForComment import HTMLParserForComment
 from htmlParser import HtmlParser
 from comments import Comments
+from merchants import Merchants
+from extractMerchantId import extractId
 
 class Retrieve:
 
@@ -29,19 +31,21 @@ class Retrieve:
         self.commentCount = 0
 
     # save comment to db
-    def saveComments(self):
+    def saveComments(self, m):
 
         # connect db
         base.db.connect()
 
         for c in self.parser.commentContents:
-            Comments.create(raw = c)
+            Comments.create(raw = c, merchantId = m)
 
-    def retrieveComments(self):
+        base.db.close()
+
+    def retrieveComments(self, id):
         
         # first time
         response, content = self.http.request(config.COMMENTSURL + \
-                            '1452957314-3-1-0.html')
+                            id + '-3-1-0.html')
         self.parser.feed(content)
         self.parser.close()
 
@@ -56,14 +60,47 @@ class Retrieve:
                   "comments..."
             try:
                 response, content = self.http.request(config.COMMENTSURL + \
-                                    '1452957314-3-' + str(p) + '-0.html')
+                                    id + '-3-' + str(p) + '-0.html')
                 self.parser.feed(content)
                 self.parser.close()
             except(httplib2.ServerNotFoundError):
                 p -= 1
                 print "Page", str(p), "failed, try it again..."
 
+def saveMerchant(id, name):
 
-r = Retrieve()
-r.retrieveComments()
-r.saveComments()
+    base.db.connect()
+
+    m = Merchants.create(mid = id, name = name)
+
+    base.db.close()
+
+    return m
+
+
+def main(arguments):
+    url = arguments[1]
+    name = 'unknown'
+    
+    if len(arguments) > 2:
+        name = arguments[2]
+    
+    id = extractId(url)
+    if id == 'none':
+        print "Merchant id is invalid!"
+        exit()
+
+    m = saveMerchant(id, name)
+
+    r = Retrieve()
+    r.retrieveComments(id)
+    r.saveComments(m)
+
+
+if __name__ == "__main__":
+    
+    if len(sys.argv) < 2:
+        print 'Please input the url of the merchant'
+        exit()
+    
+    main(sys.argv)
