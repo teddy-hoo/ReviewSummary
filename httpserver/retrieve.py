@@ -78,7 +78,7 @@ def saveMerchant(id, name):
     return m
 
 
-def main(arguments):
+def retrieve(arguments):
     url = arguments[1]
     name = 'unknown'
     
@@ -103,4 +103,4 @@ if __name__ == "__main__":
         print 'Please input the url of the merchant'
         exit()
     
-    main(sys.argv)
+    retrieve(sys.argv)

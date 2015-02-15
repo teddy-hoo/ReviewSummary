@@ -37,16 +37,6 @@ class HTMLParserForComment(HTMLParser):
             self.isCommentContentDD = True
             return
 
-        # if tag == 'dt' and self.maybeCommentContent == True:
-        #     print 'ddddddddddddddddddd'
-        #     self.isCommentContent = True
-        #     return
-
-        # if tag == 'span' and self.isCommentContent == True:
-        #     self.isCommentContent = False
-        #     self.maybeCommentContent = False
-        #     return
-        
         if tag == 'li':
             for key, value in attrs:
                 if key == 'clstag' and value.find('allpingjia') >= 0:
