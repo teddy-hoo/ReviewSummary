@@ -25,5 +25,16 @@ class Segmenter:
 
 
 def segmenter():
-    pass
-    # read data from db and segment it
+
+    seg = Segmenter()
+
+    base.db.connect()
+
+    for c in Comments:
+        try:
+            c.segmented = seg.segment(c.raw)
+            c.save()
+        except:
+            print c.raw, "segment error!"
+
+    base.db.close()

@@ -4,17 +4,22 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'helpers'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 
 from retrieve import *
+from poser import poser
 
-URL = ''
+# set default str encoding type
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
+URL = 'http://item.jd.com/1253301.html'
 
 # retrieve comments from jingdong
-retrieve([URL])
+# retrieve(URL)
 
 # segment the comments
 
 
 # tag part of speach for the comments
-
+poser()
 
 # remove disturb comments
 

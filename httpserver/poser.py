@@ -6,6 +6,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'helpers'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 
 import config
+import base
 from comments import Comments
 
 class Poser:

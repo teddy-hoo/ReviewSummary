@@ -18,10 +18,6 @@ class Retrieve:
 
     def __init__(self):
 
-        # set default str encoding type
-        reload(sys)
-        sys.setdefaultencoding('utf-8')
-
         # set httplib2 retry time
         httplib2.RETRIES = 10
 
@@ -78,12 +74,7 @@ def saveMerchant(id, name):
     return m
 
 
-def retrieve(arguments):
-    url = arguments[1]
-    name = 'unknown'
-    
-    if len(arguments) > 2:
-        name = arguments[2]
+def retrieve(url, name = 'unknown'):
     
     id = extractId(url)
     if id == 'none':
@@ -103,4 +94,8 @@ if __name__ == "__main__":
         print 'Please input the url of the merchant'
         exit()
     
-    retrieve(sys.argv)
+    url = sys.argv[1]
+    name = 'unknown'
+    if len(sys.argv) > 2:
+        name = sys.argv[2]
+    retrieve(url, name)
