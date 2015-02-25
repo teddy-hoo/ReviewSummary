@@ -24,35 +24,30 @@ from nltk.internals import find_jar, config_java, java, _java_options
 
 from nltk.tokenize.api import TokenizerI
 
-class Segmenter(TokenizerI):
+class PosTagger(TokenizerI):
 
     def __init__(self):
 
-        baseDir = config.STANFORD_PATH + config.SEGMENT
-        dataDir = '%s/data' % baseDir
-        classifier = '%s/pku.gz' % dataDir
-        dicts = '%s/dict-chris6.ser.gz' % dataDir
+        baseDir = config.STANFORD_PATH + config.POSTAG
         verbose = True
-        _JAR = 'stanford-segmenter.jar'
+        _JAR = 'stanford-postagger.jar'
 
         self._stanford_jar = find_jar(
-            _JAR, baseDir + '/' + config.SEGMENT_JN,
+            _JAR, baseDir + '/' + config.POSTAG_JN,
             env_vars=(),
             searchpath=()
         )
-        self._sihan_corpora_dict = dataDir
-        self._model = classifier
-        self._dict = dicts
-        self._encoding = config.ENCODE_TYPE
+        self._model = '%s/models/chinese-distsim.tagger' % baseDir
         self.java_options='-mx2g'
+        self._encoding = config.ENCODE_TYPE
 
         java_path = "/usr/lib/jvm/java-8/bin/java"
         os.environ['JAVAHOME'] = java_path
 
-    def segment(self, tokens):
-        return self.segment_sents(tokens)
+    def postag(self, tokens):
+        return self.postag_sents(tokens)
 
-    def segment_sents(self, sentences):
+    def postag_sents(self, sentences):
         """
         """
         encoding = self._encoding
@@ -68,13 +63,9 @@ class Segmenter(TokenizerI):
         _input_fh.close()
 
         cmd = [
-            config.SEGMENT_CN,
-            '-sighanCorporaDict', self._sihan_corpora_dict,
-            '-textFile', self._input_file_path,
-            '-sighanPostProcessing', 'true',
-            '-keepAllWhitespaces', 'false',
-            '-loadClassifier', self._model,
-            '-serDictionary', self._dict
+            config.POSTAG_CN,
+            '-model', self._model,
+            '-textFile', self._input_file_path
         ]
 
         stdout = self._execute(cmd)
@@ -93,7 +84,7 @@ class Segmenter(TokenizerI):
         # Configure java
         config_java(options=self.java_options, verbose=verbose)
 
-        stdout, _stderr = java(cmd, classpath=self._stanford_jar, stdout=PIPE, stderr=PIPE)
+        stdout, _stderr = java(cmd,classpath=self._stanford_jar, stdout=PIPE, stderr=PIPE)
 
         # stdout = stdout.decode(encoding)
 
@@ -103,32 +94,37 @@ class Segmenter(TokenizerI):
         return stdout
 
 
-def segmenter(mid):
+def postagger(mid = 1):
 
-    # seg = Segmenter()
+    # pt = PosTagger()
 
     # base.db.connect()
 
-    print('segmenting...')
+    # sentences = []
 
-    command = '%s%s/segment.sh ctb ../data/%s.%s.raw.utf-8 UTF-8 0 > ../data/%s.%s.segmented.utf-8' %\
-              (config.STANFORD_PATH, config.SEGMENT, config.PREFIX, mid, config.PREFIX, mid)
+    print('pos tagging...')
+
+    baseDir = '%s%s/' % (config.STANFORD_PATH, config.POSTAG)
+    prefix = '%s.%s.' % (config.PREFIX, mid)
+
+    command = '%sstanford-postagger.sh %smodels/chinese-distsim.tagger ../data/%ssegmented.clean.utf-8 > ../data/%spostagged.utf-8' %\
+              (baseDir, baseDir, prefix, prefix)
 
     try:
         os.system(command)
     except(OSError):
         print('segmenting os error...')
-    # sentences = []
 
     # for c in Comments:
-    #     sentences.append(c.raw)
+    #     sentences.append(c.segmented)
 
-    # seged = seg.segment(sentences)
-    # results = seged.split('\n')
+    # tagged = pt.postag(sentences)
+
+    # results = tagged.split('\n')
 
     # iter = 0
     # for c in Comments:
-    #     c.segmented = results[iter]
+    #     c.posed = results[iter]
     #     c.save()
     #     iter += 1
 
@@ -139,4 +135,4 @@ def segmenter(mid):
 
 if __name__ == '__main__':
 
-    segmenter()
+    postagger()

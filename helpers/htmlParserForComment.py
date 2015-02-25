@@ -15,7 +15,7 @@ class HTMLParserForComment(HTMLParser):
         self.maybeCommentContent = False
         self.commentContents = []
         
-        self.commentCount = -1
+        self.total = -1
         self.inCommentCount = False
         self.isCommentCount = False
 
@@ -52,21 +52,28 @@ class HTMLParserForComment(HTMLParser):
     
     def handle_data(self, data):
 
-        if data.decode('gbk').find('心　　得') >= 0 and self.maybeCommentContent:
-            self.isCommentContent = True
-            return
+        try:
+            if data.decode('gbk').find('心　　得') >= 0 and self.maybeCommentContent:
+                self.isCommentContent = True
+                return
+        except:
+            print('UnicodeDecodeError')
         
         if len(data) != 0 and self.isCommentContentDD == True:
-            self.commentContents.append(data.replace('\n', '.').decode('gbk'))
-            self.commentCount -= 1
-            self.isCommentContent = False
-            self.inCommentContent = False
-            self.isCommentContentDD = False
-            self.maybeCommentContent = False
-            return
+            try:
+                self.commentContents.append(data.replace('\n', '.').decode('gbk'))
+                self.commentCount -= 1
+                self.isCommentContent = False
+                self.inCommentContent = False
+                self.isCommentContentDD = False
+                self.maybeCommentContent = False
+                return
+            except:
+                print('UnicodeDecodeError')
 
-        if len(data) != 0 and self.isCommentCount == True:
+        if len(data) != 0 and self.isCommentCount == True and self.total < 0:
             self.commentCount = int(data[1:-1])
+            self.total = int(data[1:-1])
             self.isCommentCount = False
             self.inCommentCount = False
             return
