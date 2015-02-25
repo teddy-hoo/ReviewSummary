@@ -3,26 +3,35 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', ''))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'helpers'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 
+from cleaner import cleaner
+from postagger import postagger
 from retrieve import *
-from poser import poser
+from segmenter import segmenter
+from showComments import showComments
+from nounmerge import nounMerge
 
-# set default str encoding type
+# set default str encoding typeu
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-URL = 'http://item.jd.com/1253301.html'
+URL = 'http://item.jd.com/1217524.html'
+
+# showComments()
 
 # retrieve comments from jingdong
-# retrieve(URL)
+# MID = retrieve(URL)
 
 # segment the comments
-
-
-# tag part of speach for the comments
-poser()
+# segmenter(MID)
 
 # remove disturb comments
+# cleaner(MID)
 
+# tag part of speach for the comments
+# postagger(MID)
+
+# merge compound nouns
+nounMerge()
 
 # extract chunk from comments
 

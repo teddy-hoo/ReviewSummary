@@ -9,7 +9,7 @@ import httplib2
 import config
 import base
 from htmlParserForComment import HTMLParserForComment
-from htmlParser import HtmlParser
+import HTMLParser
 from comments import Comments
 from merchants import Merchants
 from extractMerchantId import extractId
@@ -25,40 +25,61 @@ class Retrieve:
         self.parser = HTMLParserForComment()
 
         self.commentCount = 0
+        self.comments = []
 
     # save comment to db
     def saveComments(self, m):
 
+        data = open('../data/%s.%s.raw.utf-8' % (config.PREFIX, m.id), 'w')
+
+        for c in self.comments:
+            clean = c.strip()
+            data.write(clean + '\n')
+
+        data.close()
+
         # connect db
-        base.db.connect()
+        # base.db.connect()
 
-        for c in self.parser.commentContents:
-            Comments.create(raw = c, merchantId = m)
+        # print "There are", len(self.comments), "comments in total."
 
-        base.db.close()
+        # print('writing comments to db...')
+
+        # for c in self.comments:
+        #     clean = c.strip()
+        #     if len(clean) > 0:
+        #         Comments.create(raw = clean, merchantId = m)
+
+        # print('done...')
+
+        # base.db.close()
 
     def retrieveComments(self, id):
-        
+
         # first time
         response, content = self.http.request(config.COMMENTSURL + \
                             id + '-3-1-0.html')
         self.parser.feed(content)
         self.parser.close()
 
-        c = self.parser.commentCount
+        self.commentCount = self.parser.total
+        self.parser.commentContents = []
 
-        print "There are", c, "comments in total."
-        pageCount = c / 30 if c % 30 == 0 else c / 30 + 1
+        pageCount = self.commentCount / 30 if self.commentCount % 30 == 0 else self.commentCount / 30 + 1
 
         # iteration
         for p in xrange(1, pageCount + 1):
-            print "Retrieving", str(30 * (p - 1)), " -- ", str(30 * p - 1), \
+
+            print "Retrieving", len(self.comments), " -- ", len(self.comments) + 29, \
                   "comments..."
             try:
                 response, content = self.http.request(config.COMMENTSURL + \
                                     id + '-3-' + str(p) + '-0.html')
                 self.parser.feed(content)
                 self.parser.close()
+                for c in self.parser.commentContents:
+                    self.comments.append(c)
+                self.parser.commentContents = []
             except(httplib2.ServerNotFoundError):
                 p -= 1
                 print "Page", str(p), "failed, try it again..."
@@ -75,7 +96,7 @@ def saveMerchant(id, name):
 
 
 def retrieve(url, name = 'unknown'):
-    
+
     id = extractId(url)
     if id == 'none':
         print "Merchant id is invalid!"
@@ -87,13 +108,15 @@ def retrieve(url, name = 'unknown'):
     r.retrieveComments(id)
     r.saveComments(m)
 
+    return m.id
+
 
 if __name__ == "__main__":
-    
+
     if len(sys.argv) < 2:
         print 'Please input the url of the merchant'
         exit()
-    
+
     url = sys.argv[1]
     name = 'unknown'
     if len(sys.argv) > 2:
