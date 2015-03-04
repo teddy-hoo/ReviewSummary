@@ -1,7 +1,0 @@
-﻿Due to the limitations of the supported zip file format, the following file(s) had to be renamed.
-
-Original File Name  ->  New File Name
-chunk 使用 -> File1
-下一步工作 -> File2
-别人的方法 -> File3
-对比实验的方法 -> File4

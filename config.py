@@ -7,10 +7,12 @@
 ENCODE_TYPE = 'utf-8'
 
 # data file name prefix
-PREFIX         = 'comments'
-PREFIX_WORD    = 'words'
-PREFIX_CONTEXT = 'context'
-PREFIX_FEATURE = 'feature'
+PREFIX               = 'comments'
+PREFIX_WORD          = 'words'
+PREFIX_CONTEXT       = 'context'
+PREFIX_FEATURE       = 'feature'
+PREFIX_DESCRIPTION_P = 'positive.description'
+PREFIX_DESCRIPTION_N = 'negtive.description'
 
 # java path
 JAVA_PATH = 'java'
@@ -38,3 +40,7 @@ POSTAG_CN  = 'edu.stanford.nlp.tagger.maxent.MaxentTagger'
 WORD_COUNT_FACTOR   = 0.85
 PRE_CONTEXT_FACTOR  = 0.05
 POST_CONTEXT_FACTOR = 0.1
+
+# positive and nagtive words file
+POSITIVE_WORDS = '/home/teddy/Documents/github/ReviewSummary/data/sentiment_positive'
+NEGTIVE_WORDS  = '/home/teddy/Documents/github/ReviewSummary/data/sentiment_negtive'

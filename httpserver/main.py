@@ -15,6 +15,7 @@ from nounmerge import nounMerge
 from wordcount import wordCount
 from context import *
 from features import extractFeatures
+from descriptions import extractDescriptions
 
 # set default str encoding typeu
 reload(sys)
@@ -47,7 +48,8 @@ URL = 'http://item.jd.com/1217524.html'
 # getAllContext(2)
 
 # extract feature and description
-extractFeatures(2)
+# extractFeatures(2)
+extractDescriptions(2)
 
 # extract ue evaluation
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# a wrapper for stanford nlp segment software
 
 from __future__ import unicode_literals, print_function
 import sys, os
