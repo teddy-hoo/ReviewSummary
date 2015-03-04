@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', ''))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'helpers'))
@@ -9,6 +12,9 @@ from retrieve import *
 from segmenter import segmenter
 from showComments import showComments
 from nounmerge import nounMerge
+from wordcount import wordCount
+from context import *
+from features import extractFeatures
 
 # set default str encoding typeu
 reload(sys)
@@ -31,16 +37,17 @@ URL = 'http://item.jd.com/1217524.html'
 # postagger(MID)
 
 # merge compound nouns
-nounMerge()
+# nounMerge(2)
 
-# extract chunk from comments
+# conunt words and extract feed words
+# wordCount(2)
 
-
-# extract feed words
-
+# get context of features and generate new features
+# getContext(2)
+# getAllContext(2)
 
 # extract feature and description
-
+extractFeatures(2)
 
 # extract ue evaluation
 

@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', ''))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'helpers'))
@@ -34,7 +37,7 @@ from topthree import topThree
 # CD
 # 58
 
-# merge nouns when the after pos is AD VV VA
+# merge nouns when the after pos is AD VV VA P
 
 # statis pre pos and post pos of compound nouns
 class Statis:
@@ -91,19 +94,25 @@ def merge(sentence):
             if nounCount == 1:                
                 newSentence += words[i - 1] + ' '
             elif nounCount > 1:
-                if pos == 'VA' or pos == 'AD' or pos == 'VV':
+                if pos == 'VA' or pos == 'AD' or pos == 'VV' or pos == 'P':
                     for j in range(i - nounCount, i):
                         word = words[j].split('#')[0]
                         mergedNoun += word
                     mergedNoun  += '#NN '
                     newSentence += mergedNoun
-                    print mergedNoun
                 else:
                     for j in range(i - nounCount, i):
                         newSentence += words[j] + ' '
             
             nounCount = 0
             newSentence += words[i] + ' '
+
+    if nounCount > 0:
+        for j in range(length - nounCount, length):
+            word = words[j].split('#')[0]
+            mergedNoun += word
+        mergedNoun  += '#NN '
+        newSentence += mergedNoun
 
     return newSentence[:-1]
 
@@ -129,3 +138,5 @@ def nounMerge(mid = 1):
 
     comments.close()
     results.close()
+
+    print('done...')
