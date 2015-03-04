@@ -1,10 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 # configurations
 
 # encode type
 ENCODE_TYPE = 'utf-8'
 
 # data file name prefix
-PREFIX = 'comments'
+PREFIX         = 'comments'
+PREFIX_WORD    = 'words'
+PREFIX_CONTEXT = 'context'
+PREFIX_FEATURE = 'feature'
 
 # java path
 JAVA_PATH = 'java'
@@ -27,3 +33,8 @@ POSTAG_JN  = 'stanford-postagger-3.5.1.jar'
 # class name
 SEGMENT_CN = 'edu.stanford.nlp.ie.crf.CRFClassifier'
 POSTAG_CN  = 'edu.stanford.nlp.tagger.maxent.MaxentTagger'
+
+# factors
+WORD_COUNT_FACTOR   = 0.85
+PRE_CONTEXT_FACTOR  = 0.05
+POST_CONTEXT_FACTOR = 0.1
