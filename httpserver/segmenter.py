@@ -11,7 +11,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 import base
 from comments import Comments
 import config
-import pexpect
 import re
 
 import tempfile
@@ -19,7 +18,7 @@ import os
 import json
 from subprocess import PIPE
 
-from nltk import compat
+# from nltk import compat
 from nltk.internals import find_jar, config_java, java, _java_options
 
 from nltk.tokenize.api import TokenizerI
@@ -62,8 +61,8 @@ class Segmenter(TokenizerI):
         # Write the actural sentences to the temporary input file
         _input_fh = os.fdopen(_input_fh, 'wb')
         _input = '\n'.join((''.join(x) for x in sentences))
-        if isinstance(_input, compat.text_type) and encoding:
-            _input = _input.encode(encoding)
+        # if isinstance(_input, compat.text_type) and encoding:
+        #     _input = _input.encode(encoding)
         _input_fh.write(_input)
         _input_fh.close()
 
@@ -111,8 +110,10 @@ def segmenter(mid):
 
     print('segmenting...')
 
-    command = '%s%s/segment.sh ctb ../data/%s.%s.raw.utf-8 UTF-8 0 > ../data/%s.%s.segmented.utf-8' %\
+    command = '%s%s/segment.bat ctb ../data/%s.%s.200.utf-8 UTF-8 0 > ../data/%s.%s.segmented.utf-8' %\
               (config.STANFORD_PATH, config.SEGMENT, config.PREFIX, mid, config.PREFIX, mid)
+
+    print(command)
 
     try:
         os.system(command)

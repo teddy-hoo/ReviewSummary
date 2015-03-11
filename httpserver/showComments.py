@@ -7,7 +7,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 import base
 from comments import Comments
 import config
-import pexpect
 import re
 
 def showComments():

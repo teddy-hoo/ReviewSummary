@@ -43,6 +43,7 @@ class FPTree:
                 break
             elif c.content == transaction[index]:
                 c.frequence += 1
+                root.children.append(c)
                 self._insertTransaction(c, transaction, index + 1)
                 existed = True
                 break

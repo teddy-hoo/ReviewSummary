@@ -11,7 +11,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 import base
 from comments import Comments
 import config
-import pexpect
 import re
 
 import tempfile
@@ -19,7 +18,7 @@ import os
 import json
 from subprocess import PIPE
 
-from nltk import compat
+# from nltk import compat
 from nltk.internals import find_jar, config_java, java, _java_options
 
 from nltk.tokenize.api import TokenizerI
@@ -57,8 +56,8 @@ class PosTagger(TokenizerI):
         # Write the actural sentences to the temporary input file
         _input_fh = os.fdopen(_input_fh, 'wb')
         _input = '\n'.join((''.join(x) for x in sentences))
-        if isinstance(_input, compat.text_type) and encoding:
-            _input = _input.encode(encoding)
+        # if isinstance(_input, compat.text_type) and encoding:
+        #     _input = _input.encode(encoding)
         _input_fh.write(_input)
         _input_fh.close()
 
@@ -107,7 +106,7 @@ def postagger(mid = 1):
     baseDir = '%s%s/' % (config.STANFORD_PATH, config.POSTAG)
     prefix = '%s.%s.' % (config.PREFIX, mid)
 
-    command = '%sstanford-postagger.sh %smodels/chinese-distsim.tagger ../data/%ssegmented.clean.utf-8 > ../data/%spostagged.utf-8' %\
+    command = '%sstanford-postagger.bat %smodels/chinese-distsim.tagger ../data/%ssegmented.clean.utf-8 > ../data/%spostagged.utf-8' %\
               (baseDir, baseDir, prefix, prefix)
 
     try:

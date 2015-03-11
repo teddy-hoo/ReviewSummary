@@ -19,4 +19,4 @@ def topThree(d):
 	        tc = d[k]
 	        t  = k
 
-	return f, s, t
+	return f, fc, s, sc, t, tc

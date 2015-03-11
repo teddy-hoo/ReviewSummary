@@ -3,17 +3,17 @@
     合并复合名词，如“电脑”、“屏幕”合并为“电脑屏幕”。
     方法：利用上下文来判断名词是否可以合并，判断依据来源于正常名词所得到的主要上下文情形。
     主要参考文献：[1]王蕾,李培峰,朱巧明,杨季文.一种基于框架结构的专有名词自动识别方法[J].计算机工程与科学,2007,07:141-144+154.
-                [2]黄月圆.复合词研究[J].国外语言学,1995,02:1-9.
+                  [2]黄月圆.复合词研究[J].国外语言学,1995,02:1-9.
 2. 产品特征提取
     提取产品特征，如从一个电视的评论中提取，如“音质”、“画面”等。
     方法：统计所有名词的频率，获取名词的上下文，利用FP-Tree来得到频率较高的上下文句式。将这个两个值加权求和，分高者为产品特征。
     主要参考文献：[3]王永,张勤,杨晓洁.中文网络评论中产品特征提取方法研究[J].现代图书情报技术,2013,12:70-73.
-                [4]Han, Jiawei. Pei, Jian. Yin, Yiwen. Mao, Runying. Mining Frequent Patterns without Candidate Generation: A  Frequent-Pattern Tree Approach[J]. Data Mining and Knowledge Discovery. 2004-01-01: 1384-5810
+                  [4]Han, Jiawei. Pei, Jian. Yin, Yiwen. Mao, Runying. Mining Frequent Patterns without Candidate Generation: A  Frequent-Pattern Tree Approach[J]. Data Mining and Knowledge Discovery. 2004-01-01: 1384-5810
 3. 情感倾向分析
     情感倾向分析，是指用户对产品的态度，本文将倾向性简化为两种：积极、消极。
     方法：基于知网《情感分析用词集》所提供的词，以及知网提供的利用义原计算语义相似度的方法来获取并判断其情感倾向。
     主要参考文献：[5]黄萱菁,张奇,吴苑斌.文本情感倾向分析[J].中文信息学报,2011,06:118-126.
-                [6]刘姗,胡勇.中文网络话题评论文本语义倾向分析[J].信息安全与通信保密,2012,06:73-75.
-                [7]中文知网 . 情感分析用词语集 [EB/OL]. [2010-05-10]. http://www.keenage.com/html/c_index.html.
+                  [6]刘姗,胡勇.中文网络话题评论文本语义倾向分析[J].信息安全与通信保密,2012,06:73-75.
+                  [7]中文知网 . 情感分析用词语集 [EB/OL]. [2010-05-10]. http://www.keenage.com/html/c_index.html.
 
 

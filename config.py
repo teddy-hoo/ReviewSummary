@@ -21,12 +21,20 @@ JAVA_PATH = 'java'
 COMMENTSURL = 'http://club.jd.com/review/'
 
 # database path
-DATABASE = '/home/teddy/Documents/github/ReviewSummary/data/commentSummary.db'
+# for ubuntu
+# DATABASE = '/home/teddy/Documents/github/ReviewSummary/data/commentSummary.db'
+# for windows
+DATABASE = 'C:/Users/eway/Documents/GitHub/ReviewSummary/data/commentSummary.db'
 
 # stanford nlp software path
-STANFORD_PATH = '/home/teddy/stanford_software'
-SEGMENT       = '/stanford-segmenter-2015-01-30'
-POSTAG        = '/stanford-postagger-full-2015-01-30'
+# for ubuntu
+# STANFORD_PATH = '/home/teddy/stanford_software'
+# SEGMENT       = '/stanford-segmenter-2015-01-30'
+# POSTAG        = '/stanford-postagger-full-2015-01-30'
+# for windows
+STANFORD_PATH = 'C:/stanford'
+SEGMENT       = '/segmenter'
+POSTAG        = '/postagger'
 
 # jar name
 SEGMENT_JN = 'stanford-segmenter-3.5.1.jar'
@@ -42,5 +50,9 @@ PRE_CONTEXT_FACTOR  = 0.05
 POST_CONTEXT_FACTOR = 0.1
 
 # positive and nagtive words file
-POSITIVE_WORDS = '/home/teddy/Documents/github/ReviewSummary/data/sentiment_positive'
-NEGTIVE_WORDS  = '/home/teddy/Documents/github/ReviewSummary/data/sentiment_negtive'
+# for ubuntu
+# POSITIVE_WORDS = '/home/teddy/Documents/github/ReviewSummary/data/sentiment_positive'
+# NEGTIVE_WORDS  = '/home/teddy/Documents/github/ReviewSummary/data/sentiment_negtive'
+# for windows
+POSITIVE_WORDS = 'C:/Users/eway/Documents/GitHub/ReviewSummary/data/sentiment_positive'
+NEGTIVE_WORDS  = 'C:/Users/eway/Documents/GitHub/ReviewSummary/data/sentiment_negtive'

@@ -44,9 +44,11 @@ class Statis:
 
     def __init__(self):
 
-        self.prePos  = {}
-        self.postPos = {}
-        self.total   = 0
+        self.prePos   = {}
+        self.preWord  = {}
+        self.postPos  = {}
+        self.postWord = {}
+        self.total    = 0
 
     def parseSentence(self, sentence):
 
@@ -55,24 +57,41 @@ class Statis:
         length = len(words)
 
         for i in range(length):
-            pos = words[i].split('#')[1]
+            word = words[i].split('#')[0]
+            pos  = words[i].split('#')[1]
             if pos == 'NN':
                 nounCount += 1
-                if nounCount == 2:
-                    self.total += 1
+                # if nounCount == 2:
+                #     self.total += 1
+                #     pre = i - 2
+                #     if pre >= 0:
+                #         p = words[pre].split('#')[1]
+                #         if not self.prePos.has_key(p):
+                #             self.prePos[p] = 1
+                #         else:
+                #             self.prePos[p] += 1
+            else:
+                if nounCount == 1:
                     pre = i - 2
                     if pre >= 0:
+                        w = words[pre].split('#')[0]
                         p = words[pre].split('#')[1]
                         if not self.prePos.has_key(p):
                             self.prePos[p] = 1
                         else:
                             self.prePos[p] += 1
-            else:
-                if nounCount > 1:
+                        if not self.preWord.has_key(w):
+                            self.preWord[w] = 1
+                        else:
+                            self.preWord[w] += 1
                     if not self.postPos.has_key(pos):
                         self.postPos[pos] = 1
                     else:
                         self.postPos[pos] += 1
+                    if not self.postWord.has_key(word):
+                        self.postWord[word] = 1
+                    else:
+                        self.postWord[word] += 1
                 nounCount = 0
 
 def merge(sentence):
@@ -128,10 +147,14 @@ def nounMerge(mid = 1):
     # for c in comments:
     #     s.parseSentence(c)
 
-    # f, se, t = topThree(s.prePos)
-    # print f, se, t
-    # f, se, t = topThree(s.postPos)
-    # print f, se, t
+    # f, fc, se, sc, t, tc = topThree(s.preWord)
+    # print f, fc, se, sc, t, tc
+    # f, fc, se, sc, t, tc = topThree(s.prePos)
+    # print f, fc, se, sc, t, tc
+    # f, fc, se, sc, t, tc = topThree(s.postWord)
+    # print f, fc, se, sc, t, tc
+    # f, fc, se, sc, t, tc = topThree(s.postPos)
+    # print f, fc, se, sc, t, tc
 
     for c in comments:
         results.write(merge(c) + '\n')

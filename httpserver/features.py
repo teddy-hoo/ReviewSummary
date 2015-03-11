@@ -61,7 +61,8 @@ class Featrues:
         sortedFeatures = sorted(self.scores.iteritems(), key = lambda k:k[1], reverse = True)
 
         for f in sortedFeatures:
-            if f[1] > 200:
+            # print(f[1])
+            if f[1] > 10:
                 self.results.write(f[0] + '\n')
 
     def outputAllFeatures(self):
